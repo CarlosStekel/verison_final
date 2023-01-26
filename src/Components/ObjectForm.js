@@ -1,4 +1,3 @@
-import "./style.css"
 import Input from "./Input"
 import SelectInput from "./SelectInput"
 import Form from 'react-bootstrap/Form';

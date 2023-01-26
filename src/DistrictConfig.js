@@ -1,3 +1,5 @@
+import { Tab } from "bootstrap";
+import { Tabs } from "react-bootstrap";
 import BallotboxConfig from "./BallotboxConfig";
 import Collapsible from "./Components/Collapsible";
 import ObjectForm from "./Components/ObjectForm";
@@ -36,26 +38,32 @@ const DistrictConfig = ({districts ,setDistrict, setDistricts}) => {
         currList = {districts}
         updateList = {setDistricts}
       />
-    {districts.map((district) => (
-      <div key = {district._id}>
-        <ObjectForm
-          obj = {district}
-          lnames ={["Id", "Nombre", "Descripción", "Urnas", "Urna por Defecto", "---"]}
-          types = {['text', 'text', 'text' ,'text', district.ballotboxes.map((BX) => (BX._id)), 'text']}
-          onChange = {["default", "default", "default", "default", "", "default"]}
-          enabled = {[false, true, true ,true, true, true]}
-          visible = {[true, true, true ,false, true, false]}
-          setObj = {setDistrict}
-        />
-        <Collapsible title={"Configuración de Urnas"}>
-          <BallotboxConfig
-            district = {district}
-            setBallotBox = {(ballotbox) => setBallotBox(ballotbox, district._id)}
-            setBallotBoxes = {(ballotbox) => setBallotBoxes(ballotbox, district._id)}  
+      <Tabs className="mb-3">
+      {districts.map((district) => (     
+        <Tab
+          eventKey = {district._id} 
+          title = {district._id} 
+          key= {district._id}
+        >
+          <ObjectForm
+            obj = {district}
+            lnames ={["Id", "Nombre", "Descripción", "Urnas", "Urna por Defecto", "---"]}
+            types = {['text', 'text', 'text' ,'text', district.ballotboxes.map((BX) => (BX._id)), 'text']}
+            onChange = {["default", "default", "default", "default", "", "default"]}
+            enabled = {[false, true, true ,true, true, true]}
+            visible = {[true, true, true ,false, true, false]}
+            setObj = {setDistrict}
           />
-        </Collapsible>
-      </div>
-    ))}
+          <Collapsible title={"Configuración de Urnas"}>
+            <BallotboxConfig
+              district = {district}
+              setBallotBox = {(ballotbox) => setBallotBox(ballotbox, district._id)}
+              setBallotBoxes = {(ballotbox) => setBallotBoxes(ballotbox, district._id)}  
+            />
+          </Collapsible>
+        </Tab>
+      ))}
+      </Tabs>
     </div>
   )  
 }

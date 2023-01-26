@@ -2,12 +2,12 @@ import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 import ObjectForm from './Components/ObjectForm';
-import Collapsible from './Components/Collapsible';
 import AdvancedConfig from './AdvancedConfig';
 import DistrictConfig from './DistrictConfig';
 import QuestionConfig from './QuestionConfig';
 import DistrictQuestionsHandler from './Components/DistricQuestionsHandler';
 import { Accordion, Form } from 'react-bootstrap';
+import GeneralConfig from './GeneralConfig';
 
 function App() {
   const [self, setSelf] = useState({
@@ -182,8 +182,11 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <Button onClick = {preview}> preview </Button>
+    <div className="container">
+      <div className="col-my-12 text-center">
+        <Button onClick = {preview} variant="outline-secondary" className='mx-2'> Preview </Button>
+        <Button> Submit </Button>
+      </div>
       <Form>
         <Form.Group className='mb-3'>
           <Form.Label> Título </Form.Label>
@@ -202,38 +205,27 @@ function App() {
           />
         </Form.Group>
       </Form>
-      <h2> Configuración General </h2> {/*hacer boton collapsable*/}
-      <div> {/*hacer contenido collapsable*/}
-        <ObjectForm
-          obj = {self.configuration}
-          lnames = {[
-            "Campo de Identificación", 
-            "Url de Urna", 
-            "Home Url", 
-            "Url de Encriptador", 
-            "Url de Boletin",
-            "Zona Horaria",
-            "Templates",
-            "Contacto",
-            "Distrito por Defecto",
-            "Tiempo Salvo Conducto",
-            "Configuracion Avanzada"
-          ]}
-          types = {["text", "text", "text", "text", "text", ["Santiago/Chile", "ej"], "text", "text", self.districts.map((Dis) => (Dis._id)), "text", "text"]}
-          onChange = {["default", "default", "default", "default", "default", "default", "default", "default", "default", "number", "default"]}
-          visible = {[true, true, true, true, true, true, true, false, true, true, false]}
-          enabled = {[true, true, true, true, true, true, true, true, true, true, true]}
-          setObj = {setConfig} 
-        />
-        <Collapsible title={"Configuración Avanzada"}>
-          <AdvancedConfig
-            advancedConfig={self.configuration.advanced_config}
-            setAdvConfig = {setAdvConfig}
-          />
-        </Collapsible>
-      </div>
       <Accordion>
         <Accordion.Item eventKey='0'>
+          <Accordion.Header> Configuración General </Accordion.Header>
+          <Accordion.Body>
+            <GeneralConfig
+              genConfig = {self.configuration}
+              setGenConfig = {setConfig}
+              districts = {self.districts}
+            />
+          </Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item eventKey='1'>
+          <Accordion.Header> Configuración Avanzada </Accordion.Header>
+          <Accordion.Body>
+            <AdvancedConfig
+              advancedConfig={self.configuration.advanced_config}
+              setAdvConfig = {setAdvConfig}
+            />
+          </Accordion.Body>
+        </Accordion.Item>
+        <Accordion.Item eventKey='2'>
           <Accordion.Header> Configuración de Distritos </Accordion.Header> 
           <Accordion.Body>
             <DistrictConfig
@@ -243,7 +235,7 @@ function App() {
             />
           </Accordion.Body>
         </Accordion.Item>
-        <Accordion.Item eventKey='1'>
+        <Accordion.Item eventKey='3'>
           <Accordion.Header> Configuración de Preguntas </Accordion.Header>
           <Accordion.Body>
             <QuestionConfig
@@ -253,7 +245,7 @@ function App() {
             />
           </Accordion.Body>
         </Accordion.Item>
-        <Accordion.Item eventKey='2'>
+        <Accordion.Item eventKey='4'>
           <Accordion.Header> Asignación de Preguntas </Accordion.Header>
           <Accordion.Body>
             <DistrictQuestionsHandler
