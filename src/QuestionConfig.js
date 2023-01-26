@@ -1,3 +1,5 @@
+import { Tab } from "bootstrap";
+import { Tabs } from "react-bootstrap";
 import ChoiceConfig from "./ChoiceConfig";
 import Collapsible from "./Components/Collapsible";
 import ObjectForm from "./Components/ObjectForm";
@@ -51,8 +53,13 @@ const QuestionConfig = ({questions, setQuestions, setQuestion}) => {
         currList = {questions}
         updateList = {setQuestions}
       />
+      <Tabs className="mb-3">
       {questions.map((question) => (
-        <div key = {question._id}>
+        <Tab
+          eventKey = {question._id} 
+          title = {question._id} 
+          key= {question._id}
+        >
           <ObjectForm
             obj = {question}
             lnames ={[
@@ -81,8 +88,9 @@ const QuestionConfig = ({questions, setQuestions, setQuestion}) => {
               setChoices = {setChoices}
             />
           </Collapsible>    
-        </div>
+        </Tab>
       ))}
+      </Tabs>
     </div>
   )  
 }
