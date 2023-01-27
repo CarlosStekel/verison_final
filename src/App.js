@@ -1,7 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
-import ObjectForm from './Components/ObjectForm';
 import AdvancedConfig from './AdvancedConfig';
 import DistrictConfig from './DistrictConfig';
 import QuestionConfig from './QuestionConfig';

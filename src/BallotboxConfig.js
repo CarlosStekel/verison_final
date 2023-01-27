@@ -1,3 +1,4 @@
+import { Tab, Tabs } from "react-bootstrap";
 import ObjectForm from "./Components/ObjectForm";
 import ObjectHandler from "./Components/ObjectHandler";
 
@@ -15,18 +16,25 @@ const BallotboxConfig = ({district, setBallotBox, setBallotBoxes}) => {
         currList = {district.ballotboxes}
         updateList = {ballotbox  => setBallotBoxes(ballotbox, district._id)}
       />
+      <Tabs className="mb-3">
       {district.ballotboxes.map((ballotbox) => (
-        <ObjectForm
+        <Tab 
           key = {ballotbox._id}
-          obj = {ballotbox}
-          lnames = {["Id", "Nombre", "Descripción", "Tipo de Urna"]}
-          types = {["text", "text", "text", ["Electronic"]]}
-          onChange = {["default", "default", "default", "default"]}
-          enabled = {[false, true, true, true]}
-          visible = {[true, true, true, true]}
-          setObj = {ballotbox => setBallotBox(ballotbox)}
-        />
+          eventKey = {ballotbox._id} 
+          title = {ballotbox._id} 
+        >
+          <ObjectForm
+            obj = {ballotbox}
+            lnames = {["Id", "Nombre", "Descripción", "Tipo de Urna"]}
+            types = {["text", "text", "text", ["Electronic"]]}
+            onChange = {["default", "default", "default", "default"]}
+            enabled = {[false, true, true, true]}
+            visible = {[true, true, true, true]}
+            setObj = {ballotbox => setBallotBox(ballotbox)}
+          />
+        </Tab>
       ))}
+      </Tabs>
     </div>
   )  
 }

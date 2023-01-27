@@ -43,7 +43,7 @@ const DistrictQuestionsHandler = ({questions, districts, updateDistrict}) => {
   
   return (
     <div>
-      <Table striped bordered size="sm">
+      <Table striped bordered size="sm" responsive>
         <tbody>  
           <tr>
             <th>Preguntas</th>

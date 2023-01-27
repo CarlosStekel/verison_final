@@ -1,5 +1,4 @@
-import { Tab } from "bootstrap";
-import { Tabs } from "react-bootstrap";
+import { Accordion,Tab,Tabs } from "react-bootstrap";
 import ChoiceConfig from "./ChoiceConfig";
 import Collapsible from "./Components/Collapsible";
 import ObjectForm from "./Components/ObjectForm";
@@ -81,13 +80,18 @@ const QuestionConfig = ({questions, setQuestions, setQuestion}) => {
             visible = {[true, true, true ,false, true, true, true, true, true, true, false]}
             setObj = {setQuestion}
           />
-          <Collapsible title = {"Configuracion de Alternativas"}>
-            <ChoiceConfig
-              question = {question}
-              setChoice = {setChoice}
-              setChoices = {setChoices}
-            />
-          </Collapsible>    
+          <Accordion className="mt-3">
+            <Accordion.Item eventKey="0">
+              <Accordion.Header> Configuración de Opciones </Accordion.Header>
+              <Accordion.Body>
+                <ChoiceConfig
+                  question = {question}
+                  setChoice = {setChoice}
+                  setChoices = {setChoices}
+                />
+              </Accordion.Body>  
+            </Accordion.Item>
+          </Accordion> 
         </Tab>
       ))}
       </Tabs>

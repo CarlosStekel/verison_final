@@ -1,3 +1,4 @@
+import { Button, ButtonGroup, Tab, Tabs } from "react-bootstrap";
 import ObjectForm from "./Components/ObjectForm";
 
 const ChoiceConfig = ({question, setChoice, setChoices}) => {
@@ -19,23 +20,41 @@ const ChoiceConfig = ({question, setChoice, setChoices}) => {
     
     return (
       <div>
-        <button onClick = {addChoice}> Agregar Ópcion </button>
+        <Button onClick = {addChoice} className = 'mb-2'> Agregar </Button>
         <br/>
+        <ButtonGroup>
+          {question.choices.map((choice, index) => (
+            <Button
+              key={index} 
+              variant="outline-danger"
+              size="sm"
+              onClick = {() => deleteChoice(choice)}
+            > 
+              Eliminar O{index + 1} 
+            </Button>  
+          ))}
+        </ButtonGroup>
+        <hr/>
+        <Tabs>
         {question.choices.map((choice, index) => (
-          <button onClick = {() => deleteChoice(choice)}> Eliminar Ópcion {index + 1} </button>  
+          <Tab
+            eventKey = {index} 
+            title = {"O" + (index + 1)} 
+            key= {index}
+          >
+            <ObjectForm
+              key = {question._id + "_" + index}
+              obj = {choice}
+              lnames = {['Nombre', 'Valor', 'Posicion Absoluta', 'Posicion Relativa', 'Escribir']}
+              types = {['text', 'text', 'text', 'text', 'checkbox']}
+              onChange = {['default', 'number', 'number', 'number', 'checkbox']}
+              enabled = {[true, true, true, true, true]}
+              visible = {[true, true, true, true, true]}
+              setObj = {(choice) => setChoice(choice, index, question._id)}
+            />
+          </Tab> 
         ))}
-        {question.choices.map((choice, index) => (
-          <ObjectForm
-            key = {question._id + "_" + index}
-            obj = {choice}
-            lnames = {['Nombre', 'Valor', 'Posicion Absoluta', 'Posicion Relativa', 'Escribir']}
-            types = {['text', 'text', 'text', 'text', 'checkbox']}
-            onChange = {['default', 'number', 'number', 'number', 'checkbox']}
-            enabled = {[true, true, true, true, true]}
-            visible = {[true, true, true, true, true]}
-            setObj = {(choice) => setChoice(choice, index, question._id)}
-          /> 
-        ))}
+        </Tabs>
       </div>
     )  
   }

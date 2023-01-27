@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { ButtonGroup, Button } from "react-bootstrap";
 
 const ObjectHandler = ({defaultObj, idGen, currList, updateList}) => {
   function addObject() {
@@ -16,11 +16,20 @@ const ObjectHandler = ({defaultObj, idGen, currList, updateList}) => {
 
   return(
     <div>
-      <button onClick={addObject}> Agregar </button>
+      <Button onClick={addObject} className = 'mb-2'> Agregar </Button>
       <br/>
+      <ButtonGroup>
       {currList.map(obj => (
-        <button key = {obj._id} onClick = {() => deleteObject(obj)}> Eliminar {obj._id} </button>
+        <Button
+          key = {obj._id} 
+          variant="outline-danger"
+          size="sm"
+          onClick = {() => deleteObject(obj)}
+        > 
+          Eliminar {obj._id} 
+        </Button>
       ))}
+      </ButtonGroup>
       <hr/>
     </div>
   )

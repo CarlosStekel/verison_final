@@ -1,5 +1,6 @@
+import { Button } from "bootstrap";
 import { Tab } from "bootstrap";
-import { Tabs } from "react-bootstrap";
+import { Accordion, Tabs } from "react-bootstrap";
 import BallotboxConfig from "./BallotboxConfig";
 import Collapsible from "./Components/Collapsible";
 import ObjectForm from "./Components/ObjectForm";
@@ -54,13 +55,18 @@ const DistrictConfig = ({districts ,setDistrict, setDistricts}) => {
             visible = {[true, true, true ,false, true, false]}
             setObj = {setDistrict}
           />
-          <Collapsible title={"Configuración de Urnas"}>
-            <BallotboxConfig
-              district = {district}
-              setBallotBox = {(ballotbox) => setBallotBox(ballotbox, district._id)}
-              setBallotBoxes = {(ballotbox) => setBallotBoxes(ballotbox, district._id)}  
-            />
-          </Collapsible>
+          <Accordion className="mt-3">
+            <Accordion.Item eventKey="0">
+              <Accordion.Header> Configuración de Urnas </Accordion.Header>
+              <Accordion.Body>
+                <BallotboxConfig
+                  district = {district}
+                  setBallotBox = {(ballotbox) => setBallotBox(ballotbox, district._id)}
+                  setBallotBoxes = {(ballotbox) => setBallotBoxes(ballotbox, district._id)}  
+                  />
+              </Accordion.Body>  
+            </Accordion.Item>
+          </Accordion>
         </Tab>
       ))}
       </Tabs>
